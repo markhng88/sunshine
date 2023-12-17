@@ -29,7 +29,7 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
   </head>
-  <body>admin/
+  <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -46,8 +46,8 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-                  <span>Gold Member</span>
+                  <h5 class="mb-0 font-weight-normal">Admin1</h5>
+                  <span>Administrator</span>
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -97,6 +97,14 @@
                 <i class="mdi mdi-file-document-box"></i>
               </span>
               <span class="menu-title">Add Babysitter</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{url('showappointment')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Appointments</span>
             </a>
           </li>
         </ul>
@@ -261,32 +269,40 @@
         <!-- partial -->
         <!-- @include('admin.body') -->
         <div class="container-fluid page-body-wrapper">
-            <div class="container" align="center" style="padding: top 50px;">
+            <div class="container" style="padding: top 50px;">
+            
+            @if(session()->has('message'))
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+              {{session()->get('message')}}
+            
+          </div>
+          @endif
+            
                 <form action="{{url('upload_babysitter')}}" method="POST" enctype="multipart/form-data">
-
-                @csrf
-
-                    <div style="padding: 15px;">
+                  @csrf
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                    <div style="padding:15px;">
                         <label>Babysitter Name</label>
-                        <input type="text" style="color:black" name="name">
+                        <input type="text" style="color:black" name="name" required="">
                     </div>
-                    <div style="padding: 15px;">
+                    <div style="padding:15px;">
                         <label>Phone</label>
-                        <input type="number" style="color:black" name="number">
+                        <input type="number" style="color:black" name="number" required="">
                     </div>
-                    <div style="padding: 15px;">
+                    <div style="padding:15px;">
                         <label>Age</label>
-                        <input type="number" style="color:black" name="age">
+                        <input type="number" style="color:black" name="age" required="">
                     </div>
-                    <div style="padding: 15px;">
+                    <div style="padding:15px;">
                         <label for="comments">Description  </label>
-                        <input type="textarea" style="height: 100px; width: 500px" name="description">
-                    </div style="padding: 15px;">
-                    <div style="padding: 15px;">
+                        <input type="textarea" style="height: 100px; width: 500px" name="description" required="">
+                    </div style="padding:15px;">
+                    <div style="padding:15px;">
                         <label>Babysitter Image </label>
                         <input type="file" name="file">
                     </div>
-                    <div style="padding: 15px;">
+                    <div style="padding:15px;">
                         <input type="submit" class="btn btn-success">
                     </div>
                 </form>

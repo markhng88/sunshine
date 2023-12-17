@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Babysitter;
 
 class UserController extends Controller
 {
     public function appointmentview(){
-
-        return view('home.babysitter');
+        
+        $babysitter = babysitter::all(); 
+        return view('home.appointment',compact('babysitter'));
     }
 }
